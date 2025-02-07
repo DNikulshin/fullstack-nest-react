@@ -1,0 +1,128 @@
+### create user
+
+POST http://localhost:3000/api/user HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@test3.ru",
+    "password": "123456"
+}
+
+### user login auth/login
+
+POST http://localhost:3000/api/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@test.ru",
+    "password": "123456"
+}
+
+### get auth/profile
+
+GET http://localhost:3000/api/auth/profile HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4ODgzNDgsImV4cCI6MTczOTQ5MzE0OH0.Zmknx9-5sJCeChSkEykwpVUGiCB_AaoqRvDnHps_nsk
+
+{
+    "email": "test@test.ru",
+    "password": "123456"
+}
+
+### create category
+
+POST http://localhost:3000/api/categories HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4ODgzNDgsImV4cCI6MTczOTQ5MzE0OH0.Zmknx9-5sJCeChSkEykwpVUGiCB_AaoqRvDnHps_nsk
+
+{
+    "title": "test 1"
+}
+
+### get All categories
+
+GET http://localhost:3000/api/categories HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+{
+    "title": "test 1"
+}
+
+
+### update categories/:id
+
+
+PATCH  http://localhost:3000/api/categories/2 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+{
+    "title": "test 34"
+}
+
+### get categories/:id
+
+GET http://localhost:3000/api/categories/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+
+### remove category categories/:id
+
+DELETE  http://localhost:3000/api/categories/6 HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+
+### create transaction
+
+POST http://localhost:3000/api/transactions HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+{
+    "title": "Apr",
+    "amount": 1000,
+    "type": "expense",
+    "category": 1
+}
+
+### get All transactions
+
+GET  http://localhost:3000/api/transactions HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+### get transaction transactions/:id
+GET  http://localhost:3000/api/transactions/transaction/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4OTM5ODcsImV4cCI6MTczOTQ5ODc4N30.iA5b2Sflpe8nGQDhGIap5KsLhYU-Xwww51xZmXfLyLQ
+
+
+### update transaction transactions/:id
+PATCH   http://localhost:3000/api/transactions/transaction/1 HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+{
+    "title": "tessdfsdfsftyu"
+}
+
+
+### get transaction by type transactions/:id
+GET  http://localhost:3000/api/transactions/expense/find HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4OTM5ODcsImV4cCI6MTczOTQ5ODc4N30.iA5b2Sflpe8nGQDhGIap5KsLhYU-Xwww51xZmXfLyLQ
+
+
+### remove transaction transactions/:id
+DELETE    http://localhost:3000/api/transactions/5 HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
+
+
+### get All transactions is pagination
+GET    http://localhost:3000/api/transactions/pagination?page=1&limit=3 HTTP/1.1
+content-type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QHRlc3QucnUiLCJpYXQiOjE3Mzg4NjU3NDIsImV4cCI6MTczOTQ3MDU0Mn0.vQw5cGLfq8XFnPvZLPi7kafK_LsOWfVjO5kK_CSM8hQ
