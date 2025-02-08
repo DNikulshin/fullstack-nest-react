@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { RouterProvider } from 'react-router'
+import { router } from './router/router'
+import { useAppDispatch } from './store/hooks'
+import { getTokenFromLocalStorage } from './helpers/localStorage.helper'
+import { AuthService } from './services/auth.service'
+import { logOut, login } from './store/user/userSlice'
+import { useEffect } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+export function App() {
+    const dispatch = useAppDispatch()
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const checkAuth = async () => {
+        try {
+            const token = getTokenFromLocalStorage()
+
+            if (token) {
+                const data = await AuthService.getProfile()
+
+                if (data) {
+                    dispatch(login(data))
+                } else {
+                    dispatch(logOut())
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        checkAuth()
+    }, [])
+
+    return <RouterProvider router={router} />
 }
-
-export default App
