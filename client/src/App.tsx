@@ -32,7 +32,7 @@ export function App() {
 
     useEffect(() => {
         checkAuth()
-    }, [])
+    }, [dispatch])
 
     return <RouterProvider router={router} />
 }

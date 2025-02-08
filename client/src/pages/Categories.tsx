@@ -70,7 +70,7 @@ export const Categories: FC = () => {
                 <h1>Your category list: </h1>
                 {/* Category List */}
                 <div className="mt-2 flex flex-wrap items-center gap-2">
-                    {categories.map((category) => (
+                    {categories && categories.map((category) => (
                         <div
                             key={category.id}
                             className="group relative flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2"

@@ -46,13 +46,13 @@ export const Auth: FC = () => {
     }
 
     return (
-        <div className="mt-40 flex flex-col justify-center items-center bg-slate-900 text-white">
-            <h1 className="text-center text-xl mb-10">
+        <div className="mt-40 flex flex-col items-center justify-center bg-slate-900 text-white">
+            <h1 className="mb-10 text-center text-xl">
                 {isLogin ? 'Login' : 'Registration'}
             </h1>
 
             <form
-                className="flex w-1/3 flex-col mx-auto gap-5"
+                className="mx-auto flex w-full flex-col gap-5 sm:w-1/3"
                 onSubmit={isLogin ? loginHandler : regisrationHandler}
             >
                 <input
@@ -74,18 +74,18 @@ export const Auth: FC = () => {
                 </button>
             </form>
 
-            <div className="flex justify-center mt-5">
+            <div className="mt-5 flex justify-center">
                 {isLogin ? (
                     <button
                         onClick={() => setIsLogin(!isLogin)}
-                        className="text-slate-300 hover:text-white cursor-pointer"
+                        className="cursor-pointer text-slate-300 hover:text-white"
                     >
                         You don't have an account ?
                     </button>
                 ) : (
                     <button
                         onClick={() => setIsLogin(!isLogin)}
-                        className="text-slate-300 hover:text-white cursor-pointer"
+                        className="cursor-pointer text-slate-300 hover:text-white"
                     >
                         Already have an account ?
                     </button>
