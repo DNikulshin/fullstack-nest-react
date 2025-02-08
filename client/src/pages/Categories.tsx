@@ -5,39 +5,45 @@ import { Form, useLoaderData } from 'react-router'
 import { CategoryModal } from '../components/CategoryModal'
 import { instanceAxios } from '../api/axios.api'
 import { ICategory } from '../types/types'
+import { toast } from 'react-toastify'
 
 export const categoriesAction = async ({ request }: any) => {
-    switch (request.method) {
-        case 'POST': {
-            const formData = await request.formData()
-            const title = {
-                title: formData.get('title'),
+    try {
+        switch (request.method) {
+            case 'POST': {
+                const formData = await request.formData()
+                const title = {
+                    title: formData.get('title'),
+                }
+                await instanceAxios.post('/categories', title)
+                return null
             }
-            await instanceAxios.post('/categories', title)
-            return null
-        }
-        case 'PATCH': {
-            const formData = await request.formData()
-            const category = {
-                id: formData.get('id'),
-                title: formData.get('title'),
+            case 'PATCH': {
+                const formData = await request.formData()
+                const category = {
+                    id: formData.get('id'),
+                    title: formData.get('title'),
+                }
+
+                await instanceAxios.patch(
+                    `/categories/category/${category.id}`,
+                    category
+                )
+                return null
             }
+            case 'DELETE': {
+                const formData = await request.formData()
 
-            await instanceAxios.patch(
-                `/categories/category/${category.id}`,
-                category
-            )
-            return null
+                const categoryId = formData.get('id')
+
+                await instanceAxios.delete(`/categories/category/${categoryId}`)
+
+                return null
+            }
         }
-        case 'DELETE': {
-            const formData = await request.formData()
-
-            const categoryId = formData.get('id')
-
-            await instanceAxios.delete(`/categories/category/${categoryId}`)
-
-            return null
-        }
+    } catch (err: any) {
+        const error = err.response?.data.message
+        toast.error(error.toString())
     }
 }
 
