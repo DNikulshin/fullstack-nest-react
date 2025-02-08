@@ -48,9 +48,14 @@ export const categoriesAction = async ({ request }: any) => {
 }
 
 export const categoryLoader = async () => {
-    const { data } = await instanceAxios.get<ICategory[]>('/categories')
+    try {
+        const { data } = await instanceAxios.get<ICategory[]>('/categories')
 
-    return data
+        return data
+    } catch (err: any) {
+        const error = err.response?.data.message
+        toast.error(error.toString())
+    }
 }
 
 export const Categories: FC = () => {

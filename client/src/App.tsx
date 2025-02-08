@@ -5,6 +5,7 @@ import { getTokenFromLocalStorage } from './helpers/localStorage.helper'
 import { AuthService } from './services/auth.service'
 import { logOut, login } from './store/user/userSlice'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 export function App() {
     const dispatch = useAppDispatch()
@@ -22,7 +23,9 @@ export function App() {
                     dispatch(logOut())
                 }
             }
-        } catch (err) {
+        } catch (err: any) {
+            const error = err.response?.data.message
+            toast.error(error.toString())
             console.log(err)
         }
     }
