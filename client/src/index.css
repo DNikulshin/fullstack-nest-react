@@ -18,7 +18,7 @@
     }
     .container-custom {
         padding: 2rem;
-        text-align: center;
+        /* text-align: center; */
         max-width: 1000px;
         margin: 0 auto;
     }
