@@ -1,9 +1,16 @@
 import { FC } from 'react'
 import { TransactionForm } from '../components/TransactionForm'
-import { ICategory, ITransaction } from '../types/types'
+import {
+    ICategory,
+    IResponseTransactionLoader,
+    ITransaction,
+} from '../types/types'
 import { instanceAxios } from '../api/axios.api'
 import { toast } from 'react-toastify'
 import { TransactionTable } from '../components/TransactionTable'
+import { useLoaderData } from 'react-router'
+import { formatAmount } from '../helpers/currency.helper'
+import { Chart } from '../components/Chart'
 
 export const transactionAction = async ({ request }: any) => {
     try {
@@ -43,9 +50,19 @@ export const transactionLoader = async () => {
         const categories = await instanceAxios.get<ICategory[]>('/categories')
         const transactions =
             await instanceAxios.get<ITransaction[]>('/transactions')
+
+        const totalIncome = await instanceAxios.get<number>(
+            '/transactions/income/find'
+        )
+        const totalExpense = await instanceAxios.get<number>(
+            '/transactions/expense/find'
+        )
+
         const data = {
             categories: categories.data,
             transactions: transactions.data,
+            totalIncome: totalIncome.data,
+            totalExpense: totalExpense.data,
         }
         return data
     } catch (err: any) {
@@ -55,6 +72,9 @@ export const transactionLoader = async () => {
 }
 
 export const Transactions: FC = () => {
+    const { totalExpense, totalIncome } =
+        useLoaderData() as IResponseTransactionLoader
+
     return (
         <>
             <div className="mt-4 grid grid-cols-3 items-start gap-4">
@@ -68,7 +88,7 @@ export const Transactions: FC = () => {
                                 Total Icome:
                             </p>
                             <p className="mt-2 rounded-sm bg-green-600 p-1 text-center">
-                                1000$
+                                {formatAmount.format(totalIncome)}
                             </p>
                         </div>
                         <div>
@@ -76,15 +96,20 @@ export const Transactions: FC = () => {
                                 Total Expense:
                             </p>
                             <p className="mt-2 rounded-sm bg-red-500 p-1 text-center">
-                                1000$
+                                {formatAmount.format(totalExpense)}
                             </p>
                         </div>
                     </div>
-                    <>Chart</>
+                    <>
+                        <Chart
+                            totalExpense={totalExpense}
+                            totalIncome={totalIncome}
+                        />
+                    </>
                 </div>
             </div>
             <h1 className="my-5">
-                <TransactionTable />
+                <TransactionTable limit={5} />
             </h1>
         </>
     )
